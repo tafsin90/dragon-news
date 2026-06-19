@@ -1,5 +1,6 @@
 - nextJS
 - DaisyUI
 - Tailwind CSS
-- date-fns (date formatting)
-- react-fast-Marquee (Marquee)
+- date-fns (for date formatting)
+- react-fast-Marquee (for Marquee)
+- react icons (for icons)
