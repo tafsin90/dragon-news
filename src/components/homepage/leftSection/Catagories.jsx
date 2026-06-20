@@ -12,7 +12,7 @@ const Catagories = ({ catagories, activeId }) => {
               key={index}
               className={`text-md font-semibold text-center rounded-md hover:cursor-pointer  ${activeId === catagory.category_id ? "bg-red-500 text-white" : "bg-slate-100 hover:bg-slate-50"}`}
             >
-              <Link href={`/catagory/${catagory.category_id}`} className="p-2 block">
+              <Link href={`/catagory/${catagory.category_id}`} className="block px-4 py-2">
                 {catagory.category_name}
               </Link>
             </li>

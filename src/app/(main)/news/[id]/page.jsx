@@ -5,13 +5,25 @@ import Link from "next/link";
 import { CiBookmark, CiShare2 } from "react-icons/ci";
 import { FaEye, FaLongArrowAltLeft, FaStar } from "react-icons/fa";
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  // console.log(id,"id");
+  const newsById = await getNewsByNewsId(id);
+  // console.log(newsById);
+
+  return {
+    title: newsById.title,
+    description: newsById.details,
+  };
+}
+
 const NewsDetailsPage = async ({ params }) => {
-  const {id } = await params;
+  const { id } = await params;
   // console.log("id",id);
 
   const news = await getNewsByNewsId(id);
   // console.log(news);
-  
+
   return (
     <div className="max-w-4xl mx-auto mb-10">
       <div className="card bg-base-100 p-3 shadow-sm">
@@ -65,7 +77,7 @@ const NewsDetailsPage = async ({ params }) => {
         </div>
       </div>
 
-      <Link href={`/news/${news.category_id}`}>
+      <Link href={`/catagory/${news.category_id}`}>
         <button className="btn btn-outline text-white bg-red-500 w-1/3">
           <FaLongArrowAltLeft />
           <p>All news in this category</p>
@@ -73,6 +85,6 @@ const NewsDetailsPage = async ({ params }) => {
       </Link>
     </div>
   );
-}
+};
 
-export default NewsDetailsPage
+export default NewsDetailsPage;
