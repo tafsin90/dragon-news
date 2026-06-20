@@ -8,7 +8,7 @@ const Catagories = ({ catagories,activeId}) => {
       <ul className="flex flex-col gap-2">
         {catagories.map((catagory, index) => {
           return (
-            <li key={index} className={`${activeId === catagory.category_id && "bg-slate-200"} text-md font-semibold text-center bg-slate-100 rounded-md hover:cursor-pointer hover:bg-slate-50`}>
+            <li key={index} className={`${activeId === catagory.category_id && "bg-red-500"} text-md font-semibold text-center bg-slate-100 rounded-md hover:cursor-pointer hover:bg-slate-50`}>
               <Link href={`/catagory/${catagory.category_id}`} className="p-2 block">
                 {catagory.category_name}
               </Link>
