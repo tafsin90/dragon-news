@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 
 const RightSection = () => {
