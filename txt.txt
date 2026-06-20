@@ -4,3 +4,4 @@
 - date-fns (for date formatting)
 - react-fast-Marquee (for Marquee)
 - react icons (for icons)
+- react-hook-form (for handling form)

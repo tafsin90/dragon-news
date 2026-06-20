@@ -1,9 +1,66 @@
-
+"use client";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
-  return (
-    <div>LoginPage</div>
-  )
-}
+  // const handleLogin=(e)=>{
+  //   e.preventDefault();
+  //   const email = e.target.email.value;
+  //   const pass = e.target.password.value;
+  //   console.log(email, pass);
+  // }
 
-export default LoginPage
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  // console.log(errors);
+
+  const handleLogin = (data) => {
+    console.log(data);
+  };
+  return (
+    <div className="bg-base-200 min-h-[85vh] flex items-center justify-center mt-5">
+      <div className="bg-white p-15 rounded-lg">
+        <h1 className="font-bold text-center text-3xl pb-5 border-b-1 border-b-gray-200">
+          Login your account
+        </h1>
+        <form className="mt-5" onSubmit={handleSubmit(handleLogin)}>
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend text-base">Email address</legend>
+            <input
+              type="email"
+              // name="email"
+              {...register("email")}
+              className="input"
+              placeholder="Enter your email here"
+            />
+          </fieldset>
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend text-base">Password</legend>
+            <input
+              type="password"
+              // name="password"
+              {...register("password", { required: "password field is required" })}
+              className="input"
+              placeholder="Enter your password"
+            />
+            {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+          </fieldset>
+          <button className="btn w-full bg-gray-800 border-none text-white my-2">
+            Login
+          </button>
+        </form>
+        <p className="text-center">
+          Don't have an account?
+          <Link href="/register" className="text-red-500">
+            Register
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default LoginPage;
