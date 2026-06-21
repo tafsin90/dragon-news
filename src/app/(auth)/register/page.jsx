@@ -1,9 +1,14 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const RegisterPage = () => {
+
+  const [showPass, setShowPass] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -15,15 +20,22 @@ const RegisterPage = () => {
     // console.log(data);
     const { name, email, password, photo } = data;
 
-    const {data:res,error} = await authClient.signUp.email({
+    const { data: res, error } = await authClient.signUp.email({
       name: name,
-      email: email, // required
-      password: password, // required
+      email: email,
+      password: password,
       image: photo,
       callbackURL: "/",
     });
 
-    console.log(res, error)
+    // console.log(res, error)
+
+    if (error) {
+      alert(error.message);
+    }
+    if (res) {
+      alert("SignUp Successful.");
+    }
   };
 
   return (
@@ -63,10 +75,10 @@ const RegisterPage = () => {
               placeholder="Enter your email here"
             />
           </fieldset>
-          <fieldset className="fieldset">
+          <fieldset className="fieldset relative">
             <legend className="fieldset-legend text-base">Password</legend>
             <input
-              type="password"
+              type={showPass ? "text" : "password"}
               // name="password"
               {...register("password", {
                 required: "password field is required",
@@ -74,6 +86,12 @@ const RegisterPage = () => {
               className="input"
               placeholder="Enter your password"
             />
+            <span
+              className="absolute right-10 top-1/2 -translate-y-1/2 cursor-pointer text-lg"
+              onClick={() => setShowPass(!showPass)}
+            >
+              {showPass ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+            </span>
             {errors.password && (
               <p className="text-red-500">{errors.password.message}</p>
             )}

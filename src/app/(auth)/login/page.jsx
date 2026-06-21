@@ -1,6 +1,10 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa6";
 
 const LoginPage = () => {
   // const handleLogin=(e)=>{
@@ -10,6 +14,8 @@ const LoginPage = () => {
   //   console.log(email, pass);
   // }
 
+  const [showPass, setShowPass] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -17,9 +23,18 @@ const LoginPage = () => {
   } = useForm();
   // console.log(errors);
 
-  const handleLogin = (data) => {
-    console.log(data);
+  const handleLogin = async (data) => {
+   console.log(data);
+    const {email, password} =data;
+
+    const { data: res, error } = await authClient.signIn.email({
+      email: email,
+      password: password,
+      rememberMe: true,
+      callbackURL: "/",
+    });
   };
+
   return (
     <div className="bg-base-200 min-h-[85vh] flex items-center justify-center mt-5">
       <div className="bg-white p-15 rounded-lg">
@@ -37,17 +52,30 @@ const LoginPage = () => {
               placeholder="Enter your email here"
             />
           </fieldset>
-          <fieldset className="fieldset">
+
+          <fieldset className="fieldset relative">
             <legend className="fieldset-legend text-base">Password</legend>
             <input
-              type="password"
+              type={showPass ? "text" : "password"}
               // name="password"
-              {...register("password", { required: "password field is required" })}
+              {...register("password", {
+                required: "password field is required",
+              })}
               className="input"
               placeholder="Enter your password"
             />
-            {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+            <span
+              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-lg"
+              onClick={() => setShowPass(!showPass)}
+            >
+              {showPass ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+            </span>
+
+            {errors.password && (
+              <p className="text-red-500">{errors.password.message}</p>
+            )}
           </fieldset>
+
           <button className="btn w-full bg-gray-800 border-none text-white my-2">
             Login
           </button>
