@@ -5,3 +5,5 @@
 - react-fast-Marquee (for Marquee)
 - react icons (for icons)
 - react-hook-form (for handling form)
+- betterAuth (auth)
+- Google Cloud Console + betterAuth (auth with google)
